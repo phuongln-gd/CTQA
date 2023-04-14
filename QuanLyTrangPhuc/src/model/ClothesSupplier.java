@@ -23,6 +23,14 @@ public class ClothesSupplier {
         this.email = email;
     }
 
+    public ClothesSupplier(String name, String address, String tel, String email) {
+        this.name = name;
+        this.address = address;
+        this.tel = tel;
+        this.email = email;
+    }
+
+    
     public int getId() {
         return id;
     }

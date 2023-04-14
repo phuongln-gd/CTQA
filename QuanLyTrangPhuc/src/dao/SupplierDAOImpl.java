@@ -70,7 +70,7 @@ public class SupplierDAOImpl implements SupplierDAO {
             System.out.println(ex);
         } finally {
             MySQLConnection.getInstance().closePrepareStatement(ps);
-            MySQLConnection.getInstance().closeConn(conn);
+           // MySQLConnection.getInstance().closeConn(conn);
         }
     }
 
@@ -121,7 +121,7 @@ public class SupplierDAOImpl implements SupplierDAO {
             System.out.println(ex);
         } finally {
             MySQLConnection.getInstance().closePrepareStatement(ps);
-            MySQLConnection.getInstance().closeConn(conn);
+           // MySQLConnection.getInstance().closeConn(conn);
         } }
 
     @Override
@@ -152,7 +152,7 @@ public class SupplierDAOImpl implements SupplierDAO {
         } finally {
             MySQLConnection.getInstance().closeResultSet(rs);
             MySQLConnection.getInstance().closePrepareStatement(ps);
-            MySQLConnection.getInstance().closeConn(conn);
+            //MySQLConnection.getInstance().closeConn(conn);
         }
         return clothesSuppliers;
     }
@@ -214,7 +214,7 @@ public class SupplierDAOImpl implements SupplierDAO {
         } finally {
             MySQLConnection.getInstance().closeResultSet(rs);
             MySQLConnection.getInstance().closePrepareStatement(ps);
-            MySQLConnection.getInstance().closeConn(conn);
+            //MySQLConnection.getInstance().closeConn(conn);
         }
         return clothesSuppliers;
     }
@@ -241,7 +241,7 @@ public class SupplierDAOImpl implements SupplierDAO {
             status = 0;
         } finally {
             MySQLConnection.getInstance().closePrepareStatement(ps);
-            MySQLConnection.getInstance().closeConn(conn);
+            //MySQLConnection.getInstance().closeConn(conn);
         }
         return status;
     }

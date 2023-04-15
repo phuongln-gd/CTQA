@@ -5,6 +5,18 @@
  */
 package view;
 
+import dao.ClothesDAOImpl;
+import dao.WareHouseDAOImpl;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Clothes;
+import model.ClothesSupplier;
+import model.ImportClothes;
+import model.Staff;
+import model.WareHouse;
+
 /**
  *
  * @author FunG
@@ -14,8 +26,34 @@ public class SearchClothesFrm extends javax.swing.JFrame {
     /**
      * Creates new form SearchClothesFrm
      */
+    private ClothesSupplier supplier;
+    private Staff staff;
+    private List<ImportClothes> list;
+    private DefaultTableModel tm;
+    
+    
     public SearchClothesFrm() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.setTitle("Search Clothes");
+        list = new ArrayList<>();
+        String[] cols = {"STT", "Ten trang phuc", "Loai", "Don gia", "So luong hien tai"};
+        tm = new DefaultTableModel(cols, 0);
+        tblResult.setModel(tm);
+    }
+    
+    public SearchClothesFrm(ClothesSupplier supplier,Staff staff) {
+        initComponents();
+        this.supplier = supplier;
+        this.staff= staff;
+        list = new ArrayList<>();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.setTitle("Search Clothes");
+        String[] cols = {"STT", "Ten trang phuc", "Loai", "Don gia", "So luong hien tai"};
+        tm = new DefaultTableModel(cols, 0);
+        tblResult.setModel(tm);
     }
 
     /**
@@ -27,25 +65,30 @@ public class SearchClothesFrm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtSearch = new javax.swing.JTextField();
+        btSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        tblResult = new javax.swing.JTable();
+        btAddNewClothes = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        txtAmount = new javax.swing.JTextField();
+        btCreateBill = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtSaleoff = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        txtNote = new javax.swing.JTextField();
+        btAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Search");
+        btSearch.setText("Search");
+        btSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSearchActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblResult.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -56,27 +99,27 @@ public class SearchClothesFrm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblResult);
 
-        jButton2.setText("Add new product");
+        btAddNewClothes.setText("Add new clothes");
 
         jLabel1.setText("Amount");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtAmount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtAmountActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Create Bill");
+        btCreateBill.setText("Create Bill");
 
         jLabel2.setText("Saleoff");
 
-        jTextField3.setText("0");
+        txtSaleoff.setText("0");
 
         jLabel3.setText("Note");
 
-        jButton4.setText("Add ");
+        btAdd.setText("Add ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,16 +131,16 @@ public class SearchClothesFrm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1))
+                                .addComponent(btSearch))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(btAddNewClothes)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4)
+                                .addComponent(btAdd)
                                 .addGap(77, 77, 77)
-                                .addComponent(jButton3)
+                                .addComponent(btCreateBill)
                                 .addGap(49, 49, 49)))
                         .addContainerGap(34, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -107,9 +150,9 @@ public class SearchClothesFrm extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSaleoff, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 279, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -117,36 +160,55 @@ public class SearchClothesFrm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSaleoff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btAddNewClothes)
+                    .addComponent(btCreateBill)
+                    .addComponent(btAdd))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtAmountActionPerformed
+
+    private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
+        String s = txtSearch.getText().toString();
+        if (s.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui long nhap ten nha trang phuc!");
+            return;
+        }
+        List<WareHouse> list = WareHouseDAOImpl.getInstance().searchClothes(s);
+        if (list.size() > 0) {
+            tm.setRowCount(0);
+            for (int i = 0; i < list.size(); i++) {
+                int j = i + 1;
+                tm.addRow(list.get(i).toObjects());
+                tm.setValueAt(j + "", i, 0);
+            }
+        } else {
+            tm.setRowCount(0);
+        }
+    }//GEN-LAST:event_btSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,18 +246,18 @@ public class SearchClothesFrm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btAdd;
+    private javax.swing.JButton btAddNewClothes;
+    private javax.swing.JButton btCreateBill;
+    private javax.swing.JButton btSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable tblResult;
+    private javax.swing.JTextField txtAmount;
+    private javax.swing.JTextField txtNote;
+    private javax.swing.JTextField txtSaleoff;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

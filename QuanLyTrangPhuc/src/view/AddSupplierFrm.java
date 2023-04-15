@@ -8,6 +8,7 @@ package view;
 import dao.SupplierDAOImpl;
 import javax.swing.JOptionPane;
 import model.ClothesSupplier;
+import model.Staff;
 
 /**
  *
@@ -18,10 +19,22 @@ public class AddSupplierFrm extends javax.swing.JFrame {
     /**
      * Creates new form AddSupplierFrm
      */
+    private Staff staff;
+    
     public AddSupplierFrm() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.setTitle("Add Supplier");
     }
 
+    public AddSupplierFrm(Staff staff) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.setTitle("Add Supplier");
+        this.staff = staff;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,7 +149,7 @@ public class AddSupplierFrm extends javax.swing.JFrame {
         supplier.setTel(tel);
         supplier.setEmail(email);
         SupplierDAOImpl.getInstance().insertSupplier(supplier);
-        new SearchSupplierFrm().setVisible(true);
+        new SearchClothesFrm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btAddActionPerformed
 

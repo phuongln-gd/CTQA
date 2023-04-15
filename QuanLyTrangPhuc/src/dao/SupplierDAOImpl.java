@@ -48,7 +48,7 @@ public class SupplierDAOImpl implements SupplierDAO {
             ps.executeUpdate();
             conn.commit();
         } catch (SQLException ex) {
-            System.out.println("Loi khi tao bang Clothes:\n" + ex);
+            System.out.println("Loi khi tao bang Supplier:\n" + ex);
         } finally {
             MySQLConnection.getInstance().closePrepareStatement(ps);
 //            MySQLConnection.getInstance().closeConn(conn);
@@ -122,7 +122,8 @@ public class SupplierDAOImpl implements SupplierDAO {
         } finally {
             MySQLConnection.getInstance().closePrepareStatement(ps);
            // MySQLConnection.getInstance().closeConn(conn);
-        } }
+        } 
+    }
 
     @Override
     public List<ClothesSupplier> searchSupplier(String s) {
@@ -232,7 +233,8 @@ public class SupplierDAOImpl implements SupplierDAO {
             ps.setString(1, name);
             ps.setString(2, address);
             ps.setString(3, tel);
-            ps.setString(4, email);
+            ps.setString(4, email);            
+            ps.setInt(5, id);
             ps.executeUpdate();
             conn.commit();
             status = 1;

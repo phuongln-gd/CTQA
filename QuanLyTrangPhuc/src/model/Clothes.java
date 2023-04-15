@@ -4,6 +4,7 @@
  */
 package model;
 
+import other.AvailableState;
 import other.ClothesState;
 
 /**
@@ -13,8 +14,8 @@ import other.ClothesState;
 public class Clothes {
     private int id;
     private String name;
-    private double price;
     private String type;
+    private double price;
     private ClothesState state;
 
     public Clothes() {
@@ -66,5 +67,9 @@ public class Clothes {
 
     public void setState(ClothesState state) {
         this.state = state;
+    }
+    
+    public void onInit(){
+        state = new AvailableState();
     }
 }

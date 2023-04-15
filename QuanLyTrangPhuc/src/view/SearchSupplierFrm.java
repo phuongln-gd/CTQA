@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ClothesSupplier;
+import model.Staff;
 import processor.InitDataProcessImp;
 
 /**
@@ -21,6 +22,7 @@ public class SearchSupplierFrm extends javax.swing.JFrame {
      * Creates new form SearchSupplier
      */
     private DefaultTableModel tm;
+    private Staff staff;
 
     public SearchSupplierFrm() {
         initComponents();
@@ -31,7 +33,18 @@ public class SearchSupplierFrm extends javax.swing.JFrame {
         String[] cols = {"STT", "Ten NCC", "Dia chi", "Dien thoai", "Email"};
         tm = new DefaultTableModel(cols, 0);
         tblResult.setModel(tm);
-        
+    }
+
+    public SearchSupplierFrm(Staff staff) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.setTitle("Search Supplier");
+        //InitDataProcessImp.getInstance().initData();
+        String[] cols = {"STT", "Ten NCC", "Dia chi", "Dien thoai", "Email"};
+        tm = new DefaultTableModel(cols, 0);
+        tblResult.setModel(tm);
+        this.staff= staff;
     }
 
     /**
@@ -131,8 +144,7 @@ public class SearchSupplierFrm extends javax.swing.JFrame {
                 tm.addRow(list.get(i).toObjects());
                 tm.setValueAt(j + "", i, 0);
             }
-        }
-        else{
+        } else {
             tm.setRowCount(0);
         }
 
@@ -140,8 +152,9 @@ public class SearchSupplierFrm extends javax.swing.JFrame {
 
     private void tblResultMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblResultMouseClicked
         // TODO add your handling code here:
-        int row =tblResult.getSelectedRow();
-        if(row >= 0 && row <= tm.getRowCount() - 1){
+        int row = tblResult.getSelectedRow();
+        if (row >= 0 && row <= tm.getRowCount() - 1) {
+            new SearchClothesFrm().setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_tblResultMouseClicked
